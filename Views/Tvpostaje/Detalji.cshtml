@@ -1,0 +1,23 @@
+﻿@model TvRaspored.ViewModels.TvpostajeDetaljiViewModel
+
+<h1>O tv postaji</h1>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Naziv
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.Naziv
+        </dd>
+        <dt class = "col-sm-2">
+            Moderator
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.ModeratorIme
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Uredi" asp-route-id="@Model.TvpostajaId" class="btn btn-primary">Uredi</a> 
+</div>

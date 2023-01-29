@@ -1,0 +1,67 @@
+﻿@model TvRaspored.ViewModels.EmisijeDodajUrediViewModel
+
+<h1>Dodaj emisiju</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Dodaj" method="post">
+            <div class="form-group">
+                <label asp-for="TvpostajaId" class="control-label">Tv postaja</label>
+                <select asp-for="TvpostajaId" class="form-control">
+                    @foreach (var t in Model.tvPostaje)
+                    {
+                        if (t.TvpostajaId == Model.TvpostajaId)
+                        {
+                            <option value=@t.TvpostajaId selected>@t.Naziv</option>
+                        }else { <option value=@t.TvpostajaId>@t.Naziv</option> }
+                    }
+
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ZanrId" class="control-label">Žanr</label>
+                <select asp-for="ZanrId" class="form-control">
+                    @foreach (var z in Model.zanrovi)
+                    {
+                        if (z.ZanrId == Model.ZanrId)
+                        {
+                            <option value=@z.ZanrId selected>@z.Naziv</option>
+                        }else { <option value=@z.ZanrId>@z.Naziv</option> }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Naziv" class="control-label"></label>
+                <input asp-for="Naziv" class="form-control" />
+                <span asp-validation-for="Naziv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Opis" class="control-label"></label>
+                <textarea asp-for="Opis" class="form-control"></textarea>
+                <span asp-validation-for="Opis" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DatumVrijemePocetka" class="control-label">Datum i vrijeme početka</label>
+                <input asp-for="DatumVrijemePocetka" class="form-control"/>
+                <span asp-validation-for="DatumVrijemePocetka" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                Vrijeme trajanja
+                <input asp-for="vrijemeTrajanjaSati" id='h' min='0' max='24'>
+                <label for='h'>h</label>
+                <input asp-for="vrijemeTrajanjaMinute" id='m' min='0' max='59'>
+                <label for='m'>m</label>
+                <span asp-validation-for="vrijemeTrajanjaSati" class="text-danger m-1"></span>
+                <span asp-validation-for="vrijemeTrajanjaMinute" class="text-danger m-1"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Dodaj" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

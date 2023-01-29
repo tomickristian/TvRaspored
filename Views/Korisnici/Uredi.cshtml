@@ -1,0 +1,81 @@
+﻿@model TvRaspored.ViewModels.KorisniciUrediViewModel
+<h1>Uredi korisnika</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @if (Model.KorisnickoIme == User.Identity.Name)
+        {
+            <label class="m-2 text-black-50">Ukoliko izmjenite "Korisničko ime" ili "Lozinku" biti će potrebna ponovna prijava.</label>
+        }
+        <a class="btn btn-warning m-2" asp-action="PromjenaLozinke" asp-route-korisnickoIme="@Model.KorisnickoIme">Promjeni lozinku</a>
+        <form asp-action="Uredi" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="DatumPrijave" />
+            <input type="hidden" asp-for="KorisnikId" />
+            <input type="hidden" asp-for="Lozinka" />
+            <input type="hidden" asp-for="PutanjaSlike" />
+            <div class="form-group">
+                <label asp-for="KorisnickoIme" class="control-label">Korisničko ime</label>
+                <input asp-for="KorisnickoIme" class="form-control" />
+                <span asp-validation-for="KorisnickoIme" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ime" class="control-label"></label>
+                <input asp-for="Ime" class="form-control" />
+                <span asp-validation-for="Ime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prezime" class="control-label"></label>
+                <input asp-for="Prezime" class="form-control" />
+                <span asp-validation-for="Prezime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            @if (User.IsInRole("administrator"))
+            {
+                <div class="form-group">
+                    <label asp-for="TipId" class="control-label">Tip korisnika</label>
+                    <select asp-for="TipId" class="form-control">
+                        @foreach (var t in Model.Tipovi)
+                        {
+                            if (t.TipId == Model.TipId)
+                            {
+                                <option value=@t.TipId selected>@t.Naziv</option>
+                            }
+                            else
+                            {
+                                <option value=@t.TipId>@t.Naziv</option>
+                            }
+                        }
+                    </select>
+                </div>
+            }
+            <div class="form-group row">
+                <label asp-for="Slika" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <div class="custom-file">
+                        <input asp-for="Slika" class="form-control custom-file-input">
+                        <label class="custom-file-label">@Model.PutanjaSlike</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Spremi" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $('.custom-file-input').on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(fileName);
+            });
+        });
+    </script>
+}

@@ -1,0 +1,102 @@
+﻿@model TvRaspored.ViewModels.ZanroviIzbornikViewModel
+@inject SignInManager<IdentityUser> SignInManager
+
+<div class="text-center m-4">
+    <a class="text-dark d-inline" asp-action="Izbornik" asp-controller="Tvpostaje">
+        <h2 class="d-inline">@Model.TvPostajaNaziv</h2>
+    </a>
+    <h2 class="text-dark d-inline"> - Žanrovi</h2>
+</div>
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="d-flex justify-content-center m-3">
+        <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Odaberi...
+            </button>
+            <div>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+
+                    @if ((User.IsInRole("administrator") || User.IsInRole("moderator")) && Model.ModeratorIme == User.Identity.Name)
+                    {
+                        foreach (Zanr z in Model.Zanrovi)
+                        {
+                            <a asp-controller="Emisije" asp-action="Izbornik" asp-route-tvPostaja_id=@Model.TvPostajaId asp-route-zanr_id=@z.ZanrId class="dropdown-item" type="button">@z.Naziv</a>
+                        }
+                        <button type="button" onclick="dodajForm('dodajZanrFormId')" class="dropdown-item">Dodaj novi...</button>
+                    }
+                    else
+                    {
+                        foreach (var item in Model.Emisije.GroupBy(e => e.ZanrId))
+                        {
+                            <a asp-controller="Emisije" asp-action="Izbornik" asp-route-tvPostaja_id=@Model.TvPostajaId asp-route-zanr_id=@item.Key class="dropdown-item" type="button">@Model.Zanrovi.FirstOrDefault(z => z.ZanrId == item.Key).Naziv</a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Naziv
+            </th>
+            <th>
+                Broj emisija
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Emisije.GroupBy(e => e.ZanrId).Select(g => new { key = g.Key, count = g.Count() }).OrderByDescending(g => g.count))
+        {
+            <tr>
+                <td>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <a asp-controller="Emisije" asp-action="Izbornik" asp-route-tvPostaja_id=@Model.TvPostajaId asp-route-zanr_id=@item.key>@Model.Zanrovi.First(z => z.ZanrId == item.key).Naziv</a>
+                    }
+                    else
+                    {
+                        @Model.Zanrovi.First(z => z.ZanrId == item.key).Naziv
+                    }
+                </td>
+                <td>
+                    @item.count
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (SignInManager.IsSignedIn(User) && (User.IsInRole("administrator") || User.IsInRole("moderator")) && Model.ModeratorIme == User.Identity.Name)
+{
+    <div id="dodajZanrFormId" style="display: none;">
+        <h4 class="m-1">Dodaj žanr</h4>
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post">
+                    <input asp-for="TvPostajaId" type="hidden" />
+                    <div class="form-group">
+                        <label asp-for="Naziv" class="control-label"></label>
+                        <input asp-for="Naziv" class="form-control" />
+                        <span asp-validation-for="Naziv" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Dodaj" class="btn btn-primary" />
+                        <button type="button" onclick="odustaniForm('dodajZanrFormId')" class="btn btn-secondary m-2">Odustani</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/CustomScript.js"></script>
+}
+
+
+

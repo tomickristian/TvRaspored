@@ -1,0 +1,72 @@
+﻿@model TvRaspored.ViewModels.KorisniciDodajViewModel
+
+<h1>Registriranje korisnika</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Dodaj" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="Ime" class="control-label"></label>
+                <input asp-for="Ime" class="form-control" />
+                <span asp-validation-for="Ime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prezime" class="control-label"></label>
+                <input asp-for="Prezime" class="form-control" />
+                <span asp-validation-for="Prezime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KorisnickoIme" class="control-label">Korisničko ime</label>
+                <input asp-for="KorisnickoIme" class="form-control" />
+                <span asp-validation-for="KorisnickoIme" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input type="email" asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Lozinka" class="control-label"></label>
+                <input type="password" asp-for="Lozinka" class="form-control" />
+                <span asp-validation-for="Lozinka" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PotvrdiLozinku" class="control-label">Potvrdi lozinku</label>
+                <input type="password" asp-for="PotvrdiLozinku" class="form-control" />
+                <span asp-validation-for="PotvrdiLozinku" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipId" class="control-label">Tip korisnika</label>
+                <select asp-for="TipId" class="form-control">
+                    <option value="">Odaberi...</option>
+                    <option value=1>Moderator</option>
+                    <option value=2>Korisnik</option>
+                </select>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Slika" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <div class="custom-file">
+                        <input asp-for="Slika" class="form-control custom-file-input">
+                        <label class="custom-file-label">Odaberi sliku...</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Dodaj" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $('.custom-file-input').on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(fileName);
+            });
+        });
+    </script>
+}

@@ -1,0 +1,38 @@
+﻿@model TvRaspored.ViewModels.XmlViewModel
+
+<h1>Xml  Import / Export</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <label class="control-label">Preuzmi XML datoteku korisnici</label>
+        <a class="btn btn-success m-4" asp-controller="Korisnici" asp-action="ExportXml">Preuzmi XML</a>
+        <hr />
+        <form asp-action="ImportXml" method="post" enctype="multipart/form-data">
+            <div class="form-group row">
+                <label asp-for="XmlFile" class="control-label">Dodaj Xml datoteka</label>
+                <div class="col-sm-10">
+                    <div class="custom-file">
+                        <input asp-for="XmlFile" class="form-control custom-file-input">
+                        <label class="custom-file-label">Odaberi XML datoteku...</label>
+                    </div>
+                </div>
+                <label class="control-label text-danger">@ViewBag.Error</label>
+                <span asp-validation-for="XmlFile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Dodaj" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.custom-file-input').on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next('.custom-file-label').html(fileName);
+            });
+        });
+    </script>
+}

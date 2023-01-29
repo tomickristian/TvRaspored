@@ -1,0 +1,60 @@
+﻿@model List<TvRaspored.Selection.EmisijeRasporedSelection>
+@inject SignInManager<IdentityUser> SignInManager
+
+<h2 class="text-center m-3">Raspored</h2>
+@if (!Model.Any())
+{
+    <div class="text-center">
+        <h6 class="display-4">Trenutno niste pretplaćeni niti na jednu emisiju. Kako bi ste se pretplatili potrebno je odabratio tv postaju, žanr te detalje o emisiji po odabiru.</h6>
+        <a class="btn btn-success m-4" asp-controller="Tvpostaje" asp-action="Izbornik">Dodaj emisiju</a>
+    </div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                @if (User.IsInRole("administrator") || (User.IsInRole("moderator")))
+                {
+                    <th>
+                        <a asp-action="Raspored" asp-route-sortOrder="1">Naziv</a>
+                    </th>
+                    <th>
+                        <a asp-action="Raspored" asp-route-sortOrder="2">Žanr</a>
+                    </th>
+                    <th>
+                        <a asp-action="Raspored" asp-route-sortOrder="0">Datum i vrijeme početka</a>
+                    </th>
+                }
+                else
+                {
+                    <th>
+                        Naziv
+                    </th>
+                    <th>
+                        Žanr
+                    </th>
+                    <th>
+                        Datum i vrijeme početka
+                    </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var e in Model)
+            {
+            <tr>
+                <td>
+                    <a asp-action="Detalji" asp-route-id="@e.EmisijaId">@e.Naziv</a>
+                </td>
+                <td>
+                    @e.ZanrNaziv
+                </td>
+                <td>
+                    @e.DatumVrijemePocetka.ToString("dd/MM/yyyy H:mm")
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}

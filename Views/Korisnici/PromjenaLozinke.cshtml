@@ -1,0 +1,25 @@
+﻿@model TvRaspored.ViewModels.KorisnikPromjenaLozinkeViewModel
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <input type="hidden" asp-for="KorisnickoIme" />
+            <h4 class="m-2">Izmjena lozinke</h4>
+            <div class="form-group">
+                <label asp-for="Lozinka" class="control-label">Nova lozinka</label>
+                <input asp-for="Lozinka" class="form-control" />
+                <span asp-validation-for="Lozinka" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PotvrdiLozinku" class="control-label">Potvrdi lozinku</label>
+                <input asp-for="PotvrdiLozinku" class="form-control" />
+                <span asp-validation-for="PotvrdiLozinku" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Spremi" class="btn btn-primary" />
+                <a asp-action="Uredi" asp-route-korisnickoIme="@Model.KorisnickoIme" class="btn btn-secondary m-2">Odustani</a>
+            </div>
+        </form>
+    </div>
+</div>
+

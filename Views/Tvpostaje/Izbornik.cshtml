@@ -1,0 +1,83 @@
+﻿@model TvRaspored.ViewModels.TvpostajeIzbornikViewModel
+
+<h1 class="text-center">TV postaje</h1>
+@if (User.IsInRole("administrator"))
+{
+    <a class="btn btn-success m-3" asp-action="Dodaj">Dodaj TV postaju</a>
+}
+<hr />
+@if (User.IsInRole("administrator") || User.IsInRole("moderator"))
+{
+    <h2 class="text-center m-2">TV postaje koje vodite</h2>
+    @if (!Model.Tvpostaje.Any(t => t.Moderator.KorisnickoIme == User.Identity.Name))
+    {
+        <h1 class="text-center display-4 m-4">Trenutno ne vodite niti jednu TV postaju.</h1>
+    }
+    else
+    {
+        <div class="container  text-center mb-4">
+            <div class="card-deck">
+                @foreach (var p in Model.Tvpostaje.Where(t => t.Moderator.KorisnickoIme == User.Identity.Name))
+                {
+                    <div class="card text-center m-3" style="min-width: 18rem; max-width:30.5%;">
+                        <div class="card-header">
+                            <a asp-controller="Emisije" asp-action="Izbornik" asp-route-tvPostaja_id=@p.TvpostajaId>
+                                <h3 class="text-center text-black-50">@p.Naziv</h3>
+                            </a>
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-primary" asp-controller="Zanrovi" asp-action="Izbornik" asp-route-tvPostaja_id=@p.TvpostajaId>Žanrovi</a>
+                            @if (User.IsInRole("administrator"))
+                            {
+                                <a class="btn btn-primary" asp-action="Detalji" asp-route-id=@p.TvpostajaId>Detalji</a>
+                                <a class="btn btn-primary" asp-action="Uredi" asp-route-id=@p.TvpostajaId>Uredi</a>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    <hr />
+    <h2 class="text-center m-2">Ostale TV postaje</h2>
+    <div class="container">
+        <div class="card-deck">
+            @foreach (var p in Model.Tvpostaje.Where(t => t.Moderator.KorisnickoIme != User.Identity.Name))
+            {
+                <div class="card m-3 text-center" style="min-width: 18rem; max-width:30.5%;">
+                    <div class="card-header">
+                        @if (User.IsInRole("administrator"))
+                        {
+                            <h5 class="text-center">@p.Moderator.KorisnickoIme</h5>
+                        }
+                        <a asp-controller="Zanrovi" asp-action="Izbornik" asp-route-tvPostaja_id=@p.TvpostajaId>
+                            <h3 class="text-center text-black-50">@p.Naziv</h3>
+                        </a>
+                    </div>
+                    @if (User.IsInRole("administrator"))
+                    {
+                        <div class="card-footer">
+                            <a class="btn btn-primary" asp-action="Detalji" asp-route-id=@p.TvpostajaId>Detalji</a>
+                            <a class="btn btn-primary" asp-action="Uredi" asp-route-id=@p.TvpostajaId>Uredi</a>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div class="card-deck">
+        @foreach (var p in Model.Tvpostaje)
+        {
+            <div class="card m-3" style="min-width: 18rem; max-width:30.5%;">
+                <div class="card-header">
+                    <a asp-controller="Zanrovi" asp-action="Izbornik" asp-route-tvPostaja_id=@p.TvpostajaId>
+                        <h3 class="text-center text-black-50">@p.Naziv</h3>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+}

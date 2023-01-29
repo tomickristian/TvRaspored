@@ -1,0 +1,47 @@
+﻿@model TvRaspored.ViewModels.EmisijaDetaljiViewModel
+
+<h1>O emisiji</h1>
+
+<div>
+    <hr />
+    <form method="post">
+        <input asp-for="EmisijaId" type="hidden" class="form-control" />
+        <input asp-for="korisnik_id" type="hidden" class="form-control" />
+        <input asp-for="Naziv" type="hidden" class="form-control" />
+        <input asp-for="Opis" type="hidden" class="form-control" />
+        <input asp-for="Status" type="hidden" id="pretplataInput"  />
+        @if (Model.Status == 1)
+        {
+            <button id="pretplataButton" type="submit" class="btn m-3 btn-secondary" onclick="pretplata()">Odjavi Se</button>
+        }
+        else
+        {
+            <button id="pretplataButton" type="submit" class="btn btn-success m-3" onclick="pretplata()">Pretplati Se</button>
+        }
+    </form>
+    
+    <dl class="row">
+        <dt class="col-sm-2">
+            Naziv
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Naziv
+        </dd>
+        <dt class="col-sm-2">
+            Opis
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Opis
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (Model.ModeratorId == Model.korisnik_id)
+    {
+        <a class="btn btn-info" asp-action="Uredi" asp-route-id="@Model.EmisijaId">Uredi</a>
+    }
+</div>
+
+@section Scripts {
+    <script src="~/js/PretplataScript.js"></script>
+}

@@ -1,0 +1,85 @@
+﻿@model TvRaspored.ViewModels.EmisijeIzbornikViewModel
+@inject SignInManager<IdentityUser> SignInManager
+
+
+<div class="text-center m-4">
+    <a class="text-dark d-inline" asp-action="Izbornik" asp-controller="Tvpostaje">
+        <h2 class="d-inline">@Model.TvPostaja.Naziv</h2>
+    </a>
+    @if (Model.Zanr_id != 0)
+    {
+        <h2 class="text-dark d-inline"> - </h2>
+        <a class="text-dark d-inline" asp-action="Izbornik" asp-controller="Zanrovi" asp-route-tvPostaja_id="@Model.TvPostaja.TvpostajaId">
+            <h2 class="d-inline">@Model.ZanrNaziv</h2>
+        </a>
+    }
+    <h2 class="text-dark d-inline"> - </h2>
+    <h2 class="text-dark d-inline">Emisije</h2>
+</div>
+
+@if (Model.TvPostaja.ModeratorId == Model.KorisnikId)
+{
+    <a class="btn btn-success m-3" asp-action="Dodaj" asp-route-tvPostaja_id="@Model.TvPostaja.TvpostajaId" asp-route-zanr_id="@Model.Zanr_id">Dodaj emisiju</a>
+}
+@if (!Model.emisije.Any())
+{
+    <div class="text-center">
+        <h6 class="display-4">Nažalost televizijska postaja @Model.TvPostaja.Naziv trenutno ne prikazuje niti jedu emisiju u žanru "@Model.ZanrNaziv"...</h6>
+        <a class="btn btn-info m-4" asp-controller="Zanrovi" asp-action="Izbornik" asp-route-tvPostaja_id="@Model.TvPostaja.TvpostajaId">Nazad na žanrove</a>
+    </div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                @if (User.IsInRole("administrator") || (User.IsInRole("moderator")))
+                {
+                    <th>
+                        <a asp-action="Izbornik" asp-route-tvPostaja_id="@Model.TvPostaja.TvpostajaId" asp-route-zanr_id="@Model.Zanr_id" asp-route-sortOrder="1">Naziv</a>
+                    </th>
+                    <th>
+                        <a asp-action="Izbornik" asp-route-tvPostaja_id="@Model.TvPostaja.TvpostajaId" asp-route-zanr_id="@Model.Zanr_id" asp-route-sortOrder="2">Žanr</a>
+                    </th>
+                    <th>
+                        <a asp-action="Izbornik" asp-route-tvPostaja_id="@Model.TvPostaja.TvpostajaId" asp-route-zanr_id="@Model.Zanr_id" asp-route-sortOrder="0">Datum i vrijeme početka</a>
+                    </th>
+                }
+                else
+                {
+                    <th>
+                        Naziv
+                    </th>
+                    <th>
+                        Žanr
+                    </th>
+                    <th>
+                        Datum i vrijeme početka
+                    </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var e in Model.emisije)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Detalji" asp-route-id="@e.EmisijaId">@e.Naziv</a>
+                    </td>
+                    <td>
+                        @e.ZanrNaziv
+                    </td>
+                    <td>
+                        @e.DatumVrijemePocetka.ToString("dd/MM/yyyy H:mm")
+                    </td>
+                    <td>
+                        @if (Model.TvPostaja.ModeratorId == Model.KorisnikId)
+                        {
+                            <a class="btn btn-info mr-1 float-right" asp-action="Uredi" asp-route-id="@e.EmisijaId">Uredi</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

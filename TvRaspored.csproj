@@ -1,0 +1,118 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>6a26b03c-96e0-40bc-aae7-42df355f9208</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20201009164648_AddingIdentity.cs" />
+    <Compile Remove="Migrations\20201009164648_AddingIdentity.Designer.cs" />
+    <Compile Remove="Migrations\20201028221102_InitialDB.cs" />
+    <Compile Remove="Migrations\20201028221102_InitialDB.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\korisnici\admin.jpg" />
+    <None Include="wwwroot\images\korisnici\agreene.jpg" />
+    <None Include="wwwroot\images\korisnici\ajolie.jpg" />
+    <None Include="wwwroot\images\korisnici\apacino.jpg" />
+    <None Include="wwwroot\images\korisnici\bpitt.jpg" />
+    <None Include="wwwroot\images\korisnici\cbale.jpg" />
+    <None Include="wwwroot\images\korisnici\ceastwood.jpg" />
+    <None Include="wwwroot\images\korisnici\ctheron.jpg" />
+    <None Include="wwwroot\images\korisnici\David-Icke1-200x286.jpg" />
+    <None Include="wwwroot\images\korisnici\dfanning.jpg" />
+    <None Include="wwwroot\images\korisnici\dradcliffe.jpg" />
+    <None Include="wwwroot\images\korisnici\dr_house.jpg" />
+    <None Include="wwwroot\images\korisnici\dzihad1.JPG" />
+    <None Include="wwwroot\images\korisnici\ecuthbert.jpg" />
+    <None Include="wwwroot\images\korisnici\elongoria.jpg" />
+    <None Include="wwwroot\images\korisnici\enorton.jpg" />
+    <None Include="wwwroot\images\korisnici\epage.jpg" />
+    <None Include="wwwroot\images\korisnici\ewatson.jpg" />
+    <None Include="wwwroot\images\korisnici\gbutler.jpg" />
+    <None Include="wwwroot\images\korisnici\hberry.jpg" />
+    <None Include="wwwroot\images\korisnici\hduff.jpg" />
+    <None Include="wwwroot\images\korisnici\hpanettiere.jpg" />
+    <None Include="wwwroot\images\korisnici\ja.jpg" />
+    <None Include="wwwroot\images\korisnici\jack_bauer.jpg" />
+    <None Include="wwwroot\images\korisnici\jalba.jpg" />
+    <None Include="wwwroot\images\korisnici\janiston.jpg" />
+    <None Include="wwwroot\images\korisnici\jbiel.jpg" />
+    <None Include="wwwroot\images\korisnici\jdepp.jpg" />
+    <None Include="wwwroot\images\korisnici\jgarner.jpg" />
+    <None Include="wwwroot\images\korisnici\jheder.jpg" />
+    <None Include="wwwroot\images\korisnici\jmcavoy.jpg" />
+    <None Include="wwwroot\images\korisnici\jstatham.jpg" />
+    <None Include="wwwroot\images\korisnici\kbeckinsale.jpg" />
+    <None Include="wwwroot\images\korisnici\kdunst.jpg" />
+    <None Include="wwwroot\images\korisnici\kheigl.jpg" />
+    <None Include="wwwroot\images\korisnici\kknightley.jpg" />
+    <None Include="wwwroot\images\korisnici\kreeves.jpg" />
+    <None Include="wwwroot\images\korisnici\kstewart.jpg" />
+    <None Include="wwwroot\images\korisnici\ldicaprio.jpg" />
+    <None Include="wwwroot\images\korisnici\llohan.jpg" />
+    <None Include="wwwroot\images\korisnici\mbellucci.jpg" />
+    <None Include="wwwroot\images\korisnici\mcyrus.jpg" />
+    <None Include="wwwroot\images\korisnici\mdamon.jpg" />
+    <None Include="wwwroot\images\korisnici\mfox.jpg" />
+    <None Include="wwwroot\images\korisnici\mwahlberg.jpg" />
+    <None Include="wwwroot\images\korisnici\ncage.jpg" />
+    <None Include="wwwroot\images\korisnici\nkidman.jpg" />
+    <None Include="wwwroot\images\korisnici\nophoto.jpg" />
+    <None Include="wwwroot\images\korisnici\nportman.jpg" />
+    <None Include="wwwroot\images\korisnici\nreed.jpg" />
+    <None Include="wwwroot\images\korisnici\obloom.jpg" />
+    <None Include="wwwroot\images\korisnici\philton.jpg" />
+    <None Include="wwwroot\images\korisnici\pkos.jpg" />
+    <None Include="wwwroot\images\korisnici\qtarantino.jpg" />
+    <None Include="wwwroot\images\korisnici\rde.jpg" />
+    <None Include="wwwroot\images\korisnici\rmcadams.jpg" />
+    <None Include="wwwroot\images\korisnici\rpattinson.jpg" />
+    <None Include="wwwroot\images\korisnici\rreynolds.jpg" />
+    <None Include="wwwroot\images\korisnici\sjohansson.jpg" />
+    <None Include="wwwroot\images\korisnici\slabeouf.jpg" />
+    <None Include="wwwroot\images\korisnici\srogen.jpg" />
+    <None Include="wwwroot\images\korisnici\tcruise.jpg" />
+    <None Include="wwwroot\images\korisnici\thanks.jpg" />
+    <None Include="wwwroot\images\korisnici\tlautner.jpg" />
+    <None Include="wwwroot\images\korisnici\vanne.jpg" />
+    <None Include="wwwroot\images\korisnici\vdiesel.jpg" />
+    <None Include="wwwroot\images\korisnici\vmortensen.jpg" />
+    <None Include="wwwroot\images\korisnici\vzec.jpg" />
+    <None Include="wwwroot\images\korisnici\wsmith.jpg" />
+    <None Include="wwwroot\images\korisnici\zaposlenik.jpg" />
+    <None Include="wwwroot\images\korisnici\zdeschanel.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="3.1.9" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="Syroot.Windows.IO.KnownFolders" Version="1.2.3" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Korisnici\ImportXml.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\xmls\" />
+  </ItemGroup>
+
+</Project>

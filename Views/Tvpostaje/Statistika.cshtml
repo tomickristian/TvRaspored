@@ -1,0 +1,57 @@
+﻿@model TvRaspored.ViewModels.TvpostajeStatistikaViewModel
+
+<h2 class="text-center">Analiza stranice</h2>
+<h4 class="text-center m-3">Broj pretplata po TV postaji</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Naziv
+            </th>
+            <th>
+                Ukupno
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var e in Model.Tvpostaje.GroupBy(t => t.Naziv))
+        {
+            <tr>
+                <td>
+                    @e.Key
+                </td>
+                <td>
+                    @e.Count()
+                </td>
+                <td>
+            </tr>
+        }
+    </tbody>
+</table>
+<h4 class="text-center m-3">Korisnici koji se nisu prijavili u zadnje 2 godine</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Ime i prezime
+            </th>
+            <th>
+                Datum zadnje prijave
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var k in Model.Korisnici)
+        {
+            <tr>
+                <td>
+                    @k.Ime @k.Prezime
+                </td>
+                <td>
+                    @k.DatumPrijave.Value.Date.ToShortDateString()
+                </td>
+                <td>
+            </tr>
+        }
+    </tbody>
+</table>

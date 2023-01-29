@@ -1,0 +1,26 @@
+﻿@model List<TvRaspored.Selection.KorisniciListaSelection>
+
+<h1 class="text-center">Korisnici</h1>
+
+<a class="btn btn-success m-3" asp-action="Dodaj">Dodaj korisnika</a>
+<a class="btn btn-warning m-3" asp-action="ImportXml">XML Import/Export</a>
+<div class="card-deck">
+    @foreach (var k in Model)
+    {
+        <div class="card text-center m-3" style="min-width: 18rem; max-width:30.5%;">
+            <a asp-action="Detalji" asp-route-korisnickoIme=@k.KorisnickoIme>
+                <div class="card-header">
+                    <h5 class="align-top text-dark">@k.Ime @k.Prezime</h5>
+                </div>
+                <img style="max-height: 140px; max-width: 105px;" class="m-2" src="/images/@k.Slika" asp-append-version="true" />
+                <h6 class="align-bottom text-dark m-1">
+                    @k.TipNaziv
+                </h6>
+            </a>
+            <div class="card-footer text-center">
+                <a class="mr-1 btn btn-info" asp-action="Uredi" asp-route-korisnickoIme="@k.KorisnickoIme">Uredi</a>
+                <a class="mr-1 btn btn-info" asp-action="Detalji" asp-route-korisnickoIme="@k.KorisnickoIme">Detalji</a>
+            </div>
+        </div>
+    }
+</div>

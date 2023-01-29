@@ -1,0 +1,33 @@
+﻿@model TvRaspored.ViewModels.KorisniciPrijavaViewModel
+
+<h1>Prijava korisnika</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="KorisnickoIme" class="control-label">Korisničko ime</label>
+                <input asp-for="KorisnickoIme" class="form-control" />
+                <span asp-validation-for="KorisnickoIme" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Lozinka" class="control-label"></label>
+                <input asp-for="Lozinka" class="form-control" />
+                <span asp-validation-for="Lozinka" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label asp-for="ZapamtiMe">
+                        <input asp-for="ZapamtiMe" />
+                        Zapamti me
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Prijavi se" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
